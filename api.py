@@ -1,6 +1,15 @@
 """Flask API 入口"""
 import os
 
+# 启动时加载 conf/.env 环境变量
+try:
+    from dotenv import load_dotenv
+    env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "conf", ".env")
+    if os.path.exists(env_path):
+        load_dotenv(env_path)
+except ImportError:
+    pass
+
 from flask import Flask
 
 from biz.api.routes.webhook import webhook_bp
